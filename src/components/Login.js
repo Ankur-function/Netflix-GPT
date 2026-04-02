@@ -3,9 +3,9 @@ import { useState,useRef } from 'react';
 import { validateFormData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../utils/firebase";
-import {useNavigate} from 'react-router'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/slices/userSlice';
+import { USER_AVATAR } from '../utils/constants';
 
 
 const Login = () =>{
@@ -14,7 +14,6 @@ const Login = () =>{
     const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleFormData = () => {
@@ -27,16 +26,12 @@ const Login = () =>{
             createUserWithEmailAndPassword(auth,email.current.value,password.current.value)
                 .then((userCredential)=>{
                     const user = userCredential.user;
-                     console.log("sign up user==========",user);
-                     console.log("sign up auth==========",auth);
                     updateProfile(user, {
-                            displayName: name.current.value,photoURL:'https://avatars.githubusercontent.com/u/99880811?v=4'
+                            displayName: name.current.value,photoURL:USER_AVATAR
                     }).then(() => {
                         // we need to dispatch again with the updated values so that our store will be updated.
                         const {email,uid,displayName,photoURL} = auth.currentUser;// this also contains user data and more reliable than just user.
                         dispatch(addUser({email:email,uid:uid,displayName:displayName,photoURL:photoURL}));
-                    navigate('/browse');
-                    console.log("sign up user==========",user);
                         // Profile updated!
                         // ...
                     }).catch((error) => {
@@ -55,8 +50,18 @@ const Login = () =>{
           signInWithEmailAndPassword(auth,email.current.value,password.current.value)
                 .then((userCredential)=>{
                     const user = userCredential.user;
-                    navigate('/browse');
-                    console.log("sign in user=======",user);
+                    updateProfile(user, {
+                            displayName: name.current.value,photoURL:'https://avatars.githubusercontent.com/u/99880811?v=4'
+                    }).then(() => {
+                        // we need to dispatch again with the updated values so that our store will be updated.
+                        const {email,uid,displayName,photoURL} = auth.currentUser;// this also contains user data and more reliable than just user.
+                        dispatch(addUser({email:email,uid:uid,displayName:displayName,photoURL:photoURL}));
+                        // Profile updated!
+                        // ...
+                    }).catch((error) => {
+                        // An error occurred
+                        // ...
+                    });
                 })
                 .catch((error)=>{
                     const errorCode = error.code;

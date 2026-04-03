@@ -4,9 +4,9 @@ import useMovieTrailer from "../hooks/useMovieTrailer";
 
 const MainBackGroundVideo = ({movieId}) => {
     
+    useMovieTrailer(movieId)
     const trailer = useSelector(store=>{return store.movie?.trailerVideo});
 
-     useMovieTrailer(movieId)
     
  return (
       <div className="w-screen relative z-0">

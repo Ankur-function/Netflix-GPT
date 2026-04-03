@@ -11,8 +11,6 @@ const Header = () => {
     const dispatch = useDispatch();
     const user = useSelector(store=>store.user);
     const handleSignOut = () => {
-        console.log("inside sign out=====================");
-        
         signOut(auth).then(() => {
 }).catch((error) => {
   navigate('/errorPage');
@@ -88,7 +86,7 @@ That removes that specific watcher from memory.
 
 
     return (
-        <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
+        <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-50 flex justify-between">
             <img className="w-52" src={LOGO}alt='netflix-logo'/>
            { user && <div className="flex p-2">
                <img className="w-12 h-12" alt="usericon" src={user?.photoURL}/>

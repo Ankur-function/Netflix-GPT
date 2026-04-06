@@ -30,6 +30,11 @@
 -Embedded the youtube video and make it autoplay and mute.
 -Tailwind classes to make main container look awesome.
 -Build secondary component
+-Build Movie list
+-build movie card
+-TMDB image CDN url
+-UsePopularMovies custom hook
+-GPT Search Feature
 
 
 

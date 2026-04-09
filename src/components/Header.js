@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/slices/userSlice";
 import {languages, LOGO} from '../utils/constants';
-import { toggleGptSearchButton } from "../utils/slices/gptSlice";
+import { gptSearchedMovies, toggleGptSearchButton } from "../utils/slices/gptSlice";
 import { changeLanguageValue } from "../utils/slices/configSlice";
 
 const Header = () => {
@@ -19,12 +19,14 @@ const Header = () => {
 });
     };
     const handleGptSearchPage = () => {
-        dispatch(toggleGptSearchButton())
+        dispatch(toggleGptSearchButton());
+        dispatch(gptSearchedMovies({movieList:null,moviesResult:null}))
     }
 
     const handleLanguageValue = (e) => {
         dispatch(changeLanguageValue(e.target.value))
     }
+    const gptSearchValue = useSelector((store)=>{return store.gpt.gptSearchButton});
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth,(user)=>{ // method to Get the currently signed-in user
@@ -93,15 +95,16 @@ That removes that specific watcher from memory.
         return (()=>(unsubscribe()));
     },[]);
 
+console.log(gptSearchValue);
 
     return (
         <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-50 flex justify-between">
             <img className="w-52" src={LOGO}alt='netflix-logo'/>
            { user && <div className="flex p-2">
-            <select className="p-2 m-6 bg-gray-900 text-white" onChange={handleLanguageValue}>
+            {gptSearchValue && <select className="p-2 m-6 bg-gray-900 text-white" onChange={handleLanguageValue}>
             {languages.map((item)=>{return  <option key={item.identifier} value={item.identifier}>{item.name}</option> })}
-            </select>
-            <button onClick={handleGptSearchPage} className="py-2 px-2 mx-4 my-4 bg-purple-800 text-white rounded-lg" >Gpt Search</button>
+            </select>}
+            <button onClick={handleGptSearchPage} className="py-2 px-2 mx-4 my-4 bg-purple-800 text-white rounded-lg" >{gptSearchValue?"HomePage":"Gpt Search"}</button>
                <img className="w-12 h-12" alt="usericon" src={user?.photoURL}/>
                <button onClick={handleSignOut} className="font-bold text-white">(Sign Out)</button>
             </div>}

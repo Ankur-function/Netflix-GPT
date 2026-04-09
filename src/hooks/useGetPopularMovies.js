@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
 import { addPopularMovies } from "../utils/slices/movieSlice";
 import { useEffect } from "react";
 
 const usePopularMovies = () => {
 
+    const popularMovies = useSelector((store)=>{return store.movie.popularMovies})//memoization, not sure whether it is working or not i will check later
     const dispatch = useDispatch();
 
     const getPopularMovies  = async () => {
@@ -14,7 +15,7 @@ const usePopularMovies = () => {
     }
 
 useEffect(()=>{
-getPopularMovies();
+    if(!popularMovies) getPopularMovies();
 },[])
 
 }

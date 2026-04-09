@@ -6,7 +6,7 @@ export const API_OPTIONS = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzJiZjMxNmE2MGNlMWMxNjE1N2JiYWY4ZDVmNDJhOCIsIm5iZiI6MTc3NDg0NTM3Ny44OTMsInN1YiI6IjY5YzlmZGMxNzczMTliNGU5NjFlY2VhYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hLMNfKEOeHBMug-UAnOsva6CroBxUCZIQdIJNuselhI'
+    Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
   }
 };
 
@@ -29,3 +29,4 @@ export const languages = [
           name:'Spanish'
         }
 ]
+ export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;// key of groq because gpt apis are paid.

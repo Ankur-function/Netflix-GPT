@@ -39,6 +39,8 @@
 -GPT Search Bar
 -Multi Language Feature in the App
 -Integrate GPT APIS
+-fetched gpt movies suggestions from TMDB
+-Memoization
 
 
 

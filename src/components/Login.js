@@ -30,7 +30,7 @@ const Login = () =>{
                             displayName: name.current.value,photoURL:USER_AVATAR
                     }).then(() => {
                         // we need to dispatch again with the updated values so that our store will be updated.
-                        const {email,uid,displayName,photoURL} = auth.currentUser;// this also contains user data and more reliable than just user.
+                        const {email,uid,displayName,photoURL} = auth.currentUser;// if we use user then that would be wrong because user is an unupdated data.and this auth.currentUser is an updated data and it also contains user data and more reliable than just user.
                         dispatch(addUser({email:email,uid:uid,displayName:displayName,photoURL:photoURL}));
                         // Profile updated!
                         // ...
@@ -54,7 +54,7 @@ const Login = () =>{
                             displayName: name.current.value,photoURL:'https://avatars.githubusercontent.com/u/99880811?v=4'
                     }).then(() => {
                         // we need to dispatch again with the updated values so that our store will be updated.
-                        const {email,uid,displayName,photoURL} = auth.currentUser;// this also contains user data and more reliable than just user.
+                        const {email,uid,displayName,photoURL} = auth.currentUser;// if we use user then that would be wrong because user is an unupdated data.and this auth.currentUser is an updated data and it also contains user data and more reliable than just user.
                         dispatch(addUser({email:email,uid:uid,displayName:displayName,photoURL:photoURL}));
                         // Profile updated!
                         // ...
